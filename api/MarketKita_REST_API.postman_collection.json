@@ -1,0 +1,111 @@
+{
+  "info": {
+    "_postman_id": "d2b8f5c0-6e91-4b23-8c1a-9f4e8d7a1012",
+    "name": "MarketKita Web Marketplace REST API",
+    "description": "Koleksi pengujian REST API Aplikasi Web Marketplace (PHP Native & MySQLi) di XAMPP localhost.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. GET Daftar Seluruh Produk",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "http://localhost/web-marketplace/api/produk.php",
+          "protocol": "http",
+          "host": ["localhost"],
+          "path": ["web-marketplace", "api", "produk.php"]
+        }
+      }
+    },
+    {
+      "name": "2. GET Detail Produk Berdasarkan ID (id=1)",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "http://localhost/web-marketplace/api/produk.php?id=1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "path": ["web-marketplace", "api", "produk.php"],
+          "query": [
+            { "key": "id", "value": "1" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "3. GET Daftar Kategori",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "http://localhost/web-marketplace/api/kategori.php",
+          "protocol": "http",
+          "host": ["localhost"],
+          "path": ["web-marketplace", "api", "kategori.php"]
+        }
+      }
+    },
+    {
+      "name": "4. POST Buat Pesanan Baru",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"buyer_id\": 4,\n  \"recipient_name\": \"Budi Santoso\",\n  \"phone\": \"081200000004\",\n  \"shipping_address\": \"Jl. Sudirman No. 21, RT 02/RW 05, Surabaya 60271\",\n  \"payment_method\": \"cod\",\n  \"notes\": \"Tolong dibungkus bubble wrap tebal\",\n  \"items\": [\n    { \"product_id\": 1, \"quantity\": 1 },\n    { \"product_id\": 7, \"quantity\": 2 }\n  ]\n}"
+        },
+        "url": {
+          "raw": "http://localhost/web-marketplace/api/pesanan.php",
+          "protocol": "http",
+          "host": ["localhost"],
+          "path": ["web-marketplace", "api", "pesanan.php"]
+        }
+      }
+    },
+    {
+      "name": "5. GET Daftar Pesanan",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "http://localhost/web-marketplace/api/pesanan.php",
+          "protocol": "http",
+          "host": ["localhost"],
+          "path": ["web-marketplace", "api", "pesanan.php"]
+        }
+      }
+    },
+    {
+      "name": "6. GET Produk Tidak Ditemukan (Uji Error 404)",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "http://localhost/web-marketplace/api/produk.php?id=999",
+          "protocol": "http",
+          "host": ["localhost"],
+          "path": ["web-marketplace", "api", "produk.php"],
+          "query": [
+            { "key": "id", "value": "999" }
+          ]
+        }
+      }
+    }
+  ]
+}

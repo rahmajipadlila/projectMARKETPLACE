@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ERD &amp; Mockup UI — MarketKita Web Marketplace</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<style>
+  body { background:#f1f5f9; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color:#1e293b; }
+  .doc-section { background:#fff; border-radius:16px; padding:28px; margin-bottom:28px; box-shadow:0 4px 20px rgba(15,23,42,.06); }
+  .wireframe { border:2px solid #334155; border-radius:12px; background:#fff; overflow:hidden; }
+  .wf-bar { background:#1e293b; color:#fff; padding:10px 16px; display:flex; align-items:center; gap:12px; font-size:.85rem; }
+  .wf-dots span { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:4px; }
+  .wf-url { background:#334155; color:#cbd5e1; border-radius:6px; padding:3px 12px; flex:1; font-family:monospace; font-size:.8rem; }
+  .wf-nav { background:#0d6efd; color:#fff; padding:12px 20px; display:flex; align-items:center; gap:16px; }
+  .wf-box { border:2px dashed #94a3b8; border-radius:8px; background:#f8fafc; padding:12px; }
+  .wf-img { background:repeating-linear-gradient(45deg,#e2e8f0,#e2e8f0 10px,#f1f5f9 10px,#f1f5f9 20px);
+            border:1px solid #cbd5e1; border-radius:8px; display:flex; align-items:center; justify-content:center;
+            color:#475569; font-weight:600; font-size:.8rem; }
+  .anno { display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px;
+          border-radius:50%; background:#dc2626; color:#fff; font-weight:700; font-size:.75rem; margin-right:4px; }
+  @media print { body { background:#fff; } .doc-section { box-shadow:none; border:1px solid #cbd5e1; page-break-inside:avoid; } }
+</style>
+</head>
+<body class="py-4">
+<div class="container" style="max-width:1140px">
+
+  <div class="text-center mb-4">
+    <span class="badge bg-primary mb-2">DOKUMEN PERANCANGAN VISUAL</span>
+    <h1 class="h3 fw-bold mb-1">ERD, Alur Transaksi &amp; Mockup UI — Aplikasi Web Marketplace (MarketKita)</h1>
+    <p class="text-muted small mb-0">Bagian A.c, A.d, dan A.e — PHP Native, MySQLi &amp; Bootstrap 5</p>
+  </div>
+
+  <!-- ================================================================
+       BAGIAN 1 — ENTITY RELATIONSHIP DIAGRAM (ERD)
+       ================================================================ -->
+  <section class="doc-section" id="erd">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2 class="h5 fw-bold mb-0"><i class="bi bi-diagram-3 text-primary"></i> A.c. Entity Relationship Diagram (ERD) — Crow's Foot Notation</h2>
+      <span class="badge bg-secondary">6 Tabel Relasional (InnoDB)</span>
+    </div>
+
+    <div class="table-responsive">
+      <svg viewBox="0 0 1060 560" width="100%" style="min-width:820px;background:#f8fafc;border:1px solid #cbd5e1;border-radius:12px">
+        <defs>
+          <style>
+            .tbl-hdr { fill:#0d6efd; }
+            .tbl-hdr-alt { fill:#0f766e; }
+            .tbl-box { fill:#ffffff; stroke:#334155; stroke-width:1.8; }
+            .tbl-title { fill:#ffffff; font:700 13px system-ui,sans-serif; }
+            .col-txt { fill:#1e293b; font:12px 'Consolas','Courier New',monospace; }
+            .col-type { fill:#64748b; font:11px 'Consolas','Courier New',monospace; }
+            .pk { fill:#b45309; font:700 10px system-ui,sans-serif; }
+            .fk { fill:#0369a1; font:700 10px system-ui,sans-serif; }
+            .uq { fill:#7c3aed; font:700 10px system-ui,sans-serif; }
+            .rel { stroke:#334155; stroke-width:1.8; fill:none; }
+            .rel-lbl { fill:#334155; font:600 11px system-ui,sans-serif; }
+          </style>
+        </defs>
+
+        <!-- ==================== GARIS RELASI ==================== -->
+        <!-- users (1) ---< products (N) -->
+        <path class="rel" d="M 270 115 L 390 115"/>
+        <line class="rel" x1="282" y1="107" x2="282" y2="123"/>
+        <path class="rel" d="M 375 115 L 390 107 M 375 115 L 390 123"/>
+        <text class="rel-lbl" x="302" y="107">1 : N (menjual)</text>
+
+        <!-- categories (1) ---< products (N) -->
+        <path class="rel" d="M 270 410 L 330 410 L 330 175 L 390 175"/>
+        <line class="rel" x1="282" y1="402" x2="282" y2="418"/>
+        <path class="rel" d="M 375 175 L 390 167 M 375 175 L 390 183"/>
+        <text class="rel-lbl" x="282" y="395">1 : N</text>
+
+        <!-- users (1) ---< carts (N) -->
+        <path class="rel" d="M 270 190 L 350 190 L 350 400 L 390 400"/>
+        <line class="rel" x1="282" y1="182" x2="282" y2="198"/>
+        <path class="rel" d="M 375 400 L 390 392 M 375 400 L 390 408"/>
+
+        <!-- products (1) ---< carts (N) -->
+        <path class="rel" d="M 525 270 L 525 340"/>
+        <line class="rel" x1="517" y1="282" x2="533" y2="282"/>
+        <path class="rel" d="M 525 325 L 517 340 M 525 325 L 533 340"/>
+        <text class="rel-lbl" x="535" y="310">1 : N</text>
+
+        <!-- users (1) ---< orders (N) -->
+        <path class="rel" d="M 145 275 L 145 310 L 720 310 L 720 115 L 760 115"/>
+        <line class="rel" x1="137" y1="287" x2="153" y2="287"/>
+        <path class="rel" d="M 745 115 L 760 107 M 745 115 L 760 123"/>
+        <text class="rel-lbl" x="625" y="303">1 : N (memesan)</text>
+
+        <!-- orders (1) ---< order_items (N) -->
+        <path class="rel" d="M 900 290 L 900 340"/>
+        <line class="rel" x1="892" y1="302" x2="908" y2="302"/>
+        <path class="rel" d="M 900 325 L 892 340 M 900 325 L 908 340"/>
+        <text class="rel-lbl" x="910" y="320">1 : N</text>
+
+        <!-- products (1) ---< order_items (N) -->
+        <path class="rel" d="M 660 160 L 700 160 L 700 415 L 760 415"/>
+        <line class="rel" x1="672" y1="152" x2="672" y2="168"/>
+        <path class="rel" d="M 745 415 L 760 407 M 745 415 L 760 423"/>
+        <text class="rel-lbl" x="675" y="395">1 : N</text>
+
+        <!-- ==================== 1. TABEL USERS ==================== -->
+        <g transform="translate(20,30)">
+          <rect class="tbl-box" width="250" height="245" rx="8"/>
+          <rect class="tbl-hdr" width="250" height="32" rx="8"/>
+          <text class="tbl-title" x="14" y="21">users (Pengguna)</text>
+          <text class="pk" x="12" y="52">PK</text><text class="col-txt" x="38" y="52">id</text><text class="col-type" x="155" y="52">INT UNSIGNED</text>
+          <text class="col-txt" x="38" y="72">name</text><text class="col-type" x="155" y="72">VARCHAR(100)</text>
+          <text class="uq" x="12" y="92">UQ</text><text class="col-txt" x="38" y="92">email</text><text class="col-type" x="155" y="92">VARCHAR(150)</text>
+          <text class="col-txt" x="38" y="112">password</text><text class="col-type" x="155" y="112">VARCHAR(255)</text>
+          <text class="col-txt" x="38" y="132">role</text><text class="col-type" x="155" y="132">ENUM(3)</text>
+          <text class="col-txt" x="38" y="152">phone</text><text class="col-type" x="155" y="152">VARCHAR(20)</text>
+          <text class="col-txt" x="38" y="172">address</text><text class="col-type" x="155" y="172">TEXT</text>
+          <text class="col-txt" x="38" y="192">store_name</text><text class="col-type" x="155" y="192">VARCHAR(100)</text>
+          <text class="col-txt" x="38" y="212">created_at</text><text class="col-type" x="155" y="212">DATETIME</text>
+          <text class="col-txt" x="38" y="232">updated_at</text><text class="col-type" x="155" y="232">DATETIME</text>
+        </g>
+
+        <!-- ==================== 2. TABEL CATEGORIES ==================== -->
+        <g transform="translate(20,340)">
+          <rect class="tbl-box" width="250" height="145" rx="8"/>
+          <rect class="tbl-hdr-alt" width="250" height="32" rx="8"/>
+          <text class="tbl-title" x="14" y="21">categories (Kategori)</text>
+          <text class="pk" x="12" y="52">PK</text><text class="col-txt" x="38" y="52">id</text><text class="col-type" x="155" y="52">INT UNSIGNED</text>
+          <text class="uq" x="12" y="72">UQ</text><text class="col-txt" x="38" y="72">name</text><text class="col-type" x="155" y="72">VARCHAR(100)</text>
+          <text class="col-txt" x="38" y="92">description</text><text class="col-type" x="155" y="92">VARCHAR(255)</text>
+          <text class="col-txt" x="38" y="112">created_at</text><text class="col-type" x="155" y="112">DATETIME</text>
+        </g>
+
+        <!-- ==================== 3. TABEL PRODUCTS ==================== -->
+        <g transform="translate(390,30)">
+          <rect class="tbl-box" width="270" height="240" rx="8"/>
+          <rect class="tbl-hdr" width="270" height="32" rx="8"/>
+          <text class="tbl-title" x="14" y="21">products (Produk)</text>
+          <text class="pk" x="12" y="52">PK</text><text class="col-txt" x="38" y="52">id</text><text class="col-type" x="165" y="52">INT UNSIGNED</text>
+          <text class="fk" x="12" y="72">FK</text><text class="col-txt" x="38" y="72">seller_id</text><text class="col-type" x="165" y="72">INT UNSIGNED</text>
+          <text class="fk" x="12" y="92">FK</text><text class="col-txt" x="38" y="92">category_id</text><text class="col-type" x="165" y="92">INT UNSIGNED</text>
+          <text class="col-txt" x="38" y="112">name</text><text class="col-type" x="165" y="112">VARCHAR(150)</text>
+          <text class="col-txt" x="38" y="132">description</text><text class="col-type" x="165" y="132">TEXT</text>
+          <text class="col-txt" x="38" y="152">price</text><text class="col-type" x="165" y="152">DECIMAL(12,2)</text>
+          <text class="col-txt" x="38" y="172">stock</text><text class="col-type" x="165" y="172">INT UNSIGNED</text>
+          <text class="col-txt" x="38" y="192">image</text><text class="col-type" x="165" y="192">VARCHAR(255)</text>
+          <text class="col-txt" x="38" y="212">created_at</text><text class="col-type" x="165" y="212">DATETIME</text>
+          <text class="col-txt" x="38" y="230">updated_at</text><text class="col-type" x="165" y="230">DATETIME</text>
+        </g>
+
+        <!-- ==================== 4. TABEL CARTS ==================== -->
+        <g transform="translate(390,340)">
+          <rect class="tbl-box" width="270" height="165" rx="8"/>
+          <rect class="tbl-hdr-alt" width="270" height="32" rx="8"/>
+          <text class="tbl-title" x="14" y="21">carts (Keranjang Belanja)</text>
+          <text class="pk" x="12" y="52">PK</text><text class="col-txt" x="38" y="52">id</text><text class="col-type" x="165" y="52">INT UNSIGNED</text>
+          <text class="fk" x="12" y="72">FK</text><text class="col-txt" x="38" y="72">user_id</text><text class="col-type" x="165" y="72">INT UNSIGNED</text>
+          <text class="fk" x="12" y="92">FK</text><text class="col-txt" x="38" y="92">product_id</text><text class="col-type" x="165" y="92">INT UNSIGNED</text>
+          <text class="col-txt" x="38" y="112">quantity</text><text class="col-type" x="165" y="112">INT UNSIGNED</text>
+          <text class="col-txt" x="38" y="132">created_at</text><text class="col-type" x="165" y="132">DATETIME</text>
+          <text class="uq" x="12" y="152">UQ</text><text class="col-type" x="38" y="152">(user_id, product_id)</text>
+        </g>
+
+        <!-- ==================== 5. TABEL ORDERS ==================== -->
+        <g transform="translate(760,30)">
+          <rect class="tbl-box" width="280" height="260" rx="8"/>
+          <rect class="tbl-hdr" width="280" height="32" rx="8"/>
+          <text class="tbl-title" x="14" y="21">orders (Pesanan)</text>
+          <text class="pk" x="12" y="52">PK</text><text class="col-txt" x="38" y="52">id</text><text class="col-type" x="175" y="52">INT UNSIGNED</text>
+          <text class="uq" x="12" y="72">UQ</text><text class="col-txt" x="38" y="72">order_code</text><text class="col-type" x="175" y="72">VARCHAR(30)</text>
+          <text class="fk" x="12" y="92">FK</text><text class="col-txt" x="38" y="92">buyer_id</text><text class="col-type" x="175" y="92">INT UNSIGNED</text>
+          <text class="col-txt" x="38" y="112">recipient_name</text><text class="col-type" x="175" y="112">VARCHAR(100)</text>
+          <text class="col-txt" x="38" y="132">phone</text><text class="col-type" x="175" y="132">VARCHAR(20)</text>
+          <text class="col-txt" x="38" y="152">shipping_address</text><text class="col-type" x="175" y="152">TEXT</text>
+          <text class="col-txt" x="38" y="172">notes</text><text class="col-type" x="175" y="172">VARCHAR(255)</text>
+          <text class="col-txt" x="38" y="192">payment_method</text><text class="col-type" x="175" y="192">ENUM(2)</text>
+          <text class="col-txt" x="38" y="212">total_amount</text><text class="col-type" x="175" y="212">DECIMAL(14,2)</text>
+          <text class="col-txt" x="38" y="232">status</text><text class="col-type" x="175" y="232">ENUM(5)</text>
+          <text class="col-txt" x="38" y="250">created_at</text><text class="col-type" x="175" y="250">DATETIME</text>
+        </g>
+
+        <!-- ==================== 6. TABEL ORDER_ITEMS ==================== -->
+        <g transform="translate(760,340)">
+          <rect class="tbl-box" width="280" height="190" rx="8"/>
+          <rect class="tbl-hdr-alt" width="280" height="32" rx="8"/>
+          <text class="tbl-title" x="14" y="21">order_items (Detail Pesanan)</text>
+          <text class="pk" x="12" y="52">PK</text><text class="col-txt" x="38" y="52">id</text><text class="col-type" x="175" y="52">INT UNSIGNED</text>
+          <text class="fk" x="12" y="72">FK</text><text class="col-txt" x="38" y="72">order_id</text><text class="col-type" x="175" y="72">INT UNSIGNED</text>
+          <text class="fk" x="12" y="92">FK</text><text class="col-txt" x="38" y="92">product_id</text><text class="col-type" x="175" y="92">INT UNSIGNED</text>
+          <text class="fk" x="12" y="112">FK</text><text class="col-txt" x="38" y="112">seller_id</text><text class="col-type" x="175" y="112">INT UNSIGNED</text>
+          <text class="col-txt" x="38" y="132">product_name</text><text class="col-type" x="175" y="132">VARCHAR(150)</text>
+          <text class="col-txt" x="38" y="152">price</text><text class="col-type" x="175" y="152">DECIMAL(12,2)</text>
+          <text class="col-txt" x="38" y="170">quantity, subtotal</text><text class="col-type" x="175" y="170">INT, DECIMAL</text>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       BAGIAN 2 — MOCKUP UI 1: HALAMAN DAFTAR PRODUK
+       ================================================================ -->
+  <section class="doc-section" id="mockup-list">
+    <h2 class="h5 fw-bold mb-3"><i class="bi bi-window text-primary"></i> A.e.1. Mockup UI — Halaman Daftar Produk (<code>index.php</code>)</h2>
+    <div class="wireframe">
+      <div class="wf-bar">
+        <div class="wf-dots"><span style="background:#ef4444"></span><span style="background:#f59e0b"></span><span style="background:#22c55e"></span></div>
+        <div class="wf-url">https://marketkita.infinityfreeapp.com/index.php</div>
+      </div>
+      <div class="wf-nav">
+        <div class="fw-bold"><span class="anno">1</span><i class="bi bi-bag-heart-fill"></i> MarketKita</div>
+        <div class="bg-white text-dark rounded px-3 py-1 flex-grow-1 small"><span class="anno">2</span><i class="bi bi-search"></i> Cari produk...</div>
+        <div class="small"><span class="anno">3</span><i class="bi bi-cart3"></i> Keranjang (2) &nbsp;|&nbsp; <i class="bi bi-receipt"></i> Pesanan Saya &nbsp;|&nbsp; <i class="bi bi-person-circle"></i> Budi</div>
+      </div>
+      <div class="p-3 p-md-4">
+        <div class="p-3 rounded-3 mb-3 text-white" style="background:linear-gradient(135deg,#0d6efd,#063970)">
+          <span class="anno">4</span><strong>Hero Banner:</strong> Belanja mudah, jualan pun gampang — CTA Mulai Belanja
+        </div>
+        <div class="row g-3">
+          <div class="col-md-3">
+            <div class="wf-box">
+              <div class="fw-bold small mb-2"><span class="anno">5</span>Filter Kategori</div>
+              <div class="small py-1 px-2 bg-primary text-white rounded mb-1">Semua Kategori</div>
+              <div class="small py-1 px-2">Elektronik (2)</div>
+              <div class="small py-1 px-2">Fashion (3)</div>
+              <div class="small py-1 px-2">Makanan &amp; Minuman (2)</div>
+              <div class="small py-1 px-2">Rumah Tangga (1)</div>
+            </div>
+          </div>
+          <div class="col-md-9">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <div class="fw-bold">Daftar Produk <span class="text-muted small fw-normal">(8 produk)</span></div>
+              <div class="small border rounded px-2 py-1"><span class="anno">6</span>Urutkan: Terbaru ▾</div>
+            </div>
+            <div class="row row-cols-3 g-2">
+              <div class="col"><div class="wf-box p-2"><div class="wf-img" style="height:110px"><span class="anno">7</span>Foto 1:1</div><span class="badge bg-primary-subtle text-primary mt-2">Elektronik</span><div class="small fw-bold mt-1">Headphone Bluetooth</div><div class="text-primary fw-bold small">Rp 349.000</div><div class="text-muted" style="font-size:.72rem">Andi Gadget • Stok: 25</div></div></div>
+              <div class="col"><div class="wf-box p-2"><div class="wf-img" style="height:110px">Foto 1:1</div><span class="badge bg-primary-subtle text-primary mt-2">Elektronik</span><div class="small fw-bold mt-1">Smartwatch Fitness</div><div class="text-primary fw-bold small">Rp 499.000</div><div class="text-muted" style="font-size:.72rem">Andi Gadget • Stok: 15</div></div></div>
+              <div class="col"><div class="wf-box p-2"><div class="wf-img" style="height:110px">Foto 1:1</div><span class="badge bg-primary-subtle text-primary mt-2">Fashion</span><div class="small fw-bold mt-1">Kemeja Flanel Pria</div><div class="text-primary fw-bold small">Rp 159.000</div><div class="text-muted" style="font-size:.72rem">Sari Fashion • Stok: 50</div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row row-cols-2 row-cols-md-4 g-2 mt-2 small text-muted">
+      <div><span class="anno">1</span>Brand / link beranda</div>
+      <div><span class="anno">2</span>Pencarian kata kunci (GET <code>?q=</code>)</div>
+      <div><span class="anno">3</span>Badge jumlah keranjang &amp; menu akun</div>
+      <div><span class="anno">4</span>Hero banner promosi</div>
+      <div><span class="anno">5</span>Sidebar filter kategori</div>
+      <div><span class="anno">6</span>Dropdown pengurutan harga/terbaru</div>
+      <div><span class="anno">7</span>Kartu produk (klik menuju detail)</div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       BAGIAN 3 — MOCKUP UI 2: HALAMAN DETAIL PRODUK
+       ================================================================ -->
+  <section class="doc-section" id="mockup-detail">
+    <h2 class="h5 fw-bold mb-3"><i class="bi bi-window text-primary"></i> A.e.2. Mockup UI — Halaman Detail Produk (<code>product.php?id=1</code>)</h2>
+    <div class="wireframe">
+      <div class="wf-bar">
+        <div class="wf-dots"><span style="background:#ef4444"></span><span style="background:#f59e0b"></span><span style="background:#22c55e"></span></div>
+        <div class="wf-url">https://marketkita.infinityfreeapp.com/product.php?id=1</div>
+      </div>
+      <div class="wf-nav">
+        <div class="fw-bold"><i class="bi bi-bag-heart-fill"></i> MarketKita</div>
+        <div class="bg-white text-dark rounded px-3 py-1 flex-grow-1 small"><i class="bi bi-search"></i> Cari produk...</div>
+        <div class="small"><i class="bi bi-cart3"></i> Keranjang (2)</div>
+      </div>
+      <div class="p-3 p-md-4">
+        <div class="small text-muted mb-2"><span class="anno">1</span>Produk / Elektronik / <strong>Headphone Bluetooth Over-Ear</strong></div>
+        <div class="row g-4">
+          <div class="col-md-5">
+            <div class="wf-img" style="height:250px"><span class="anno">2</span>Gambar Produk Utama (Ratio 1:1)</div>
+          </div>
+          <div class="col-md-7">
+            <span class="badge bg-primary-subtle text-primary">Elektronik</span>
+            <h3 class="h5 fw-bold mt-1 mb-1"><span class="anno">3</span>Headphone Bluetooth Over-Ear</h3>
+            <div class="small text-muted mb-2">Terjual 5 • <span class="text-success">Stok tersedia: 25</span></div>
+            <div class="h4 fw-bold text-primary mb-3">Rp 349.000</div>
+            <div class="d-flex flex-wrap gap-2 align-items-center mb-3">
+              <div class="border rounded px-3 py-1"><span class="anno">4</span>− &nbsp; 1 &nbsp; +</div>
+              <button class="btn btn-primary btn-sm"><span class="anno">5</span><i class="bi bi-cart-plus"></i> Tambah ke Keranjang</button>
+              <button class="btn btn-outline-primary btn-sm"><span class="anno">6</span>Beli Sekarang</button>
+            </div>
+            <div class="wf-box small"><span class="anno">7</span><i class="bi bi-shop"></i> <strong>Andi Gadget Store</strong> — Jl. Merdeka No. 10, Bandung</div>
+          </div>
+        </div>
+        <hr>
+        <div class="small"><span class="anno">8</span><strong>Deskripsi Produk:</strong> Headphone nirkabel Bluetooth 5.3, baterai tahan 40 jam, bantalan telinga empuk...</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       BAGIAN 4 — MOCKUP UI 3: HALAMAN KERANJANG BELANJA
+       ================================================================ -->
+  <section class="doc-section" id="mockup-cart">
+    <h2 class="h5 fw-bold mb-3"><i class="bi bi-window text-primary"></i> A.e.3. Mockup UI — Halaman Keranjang Belanja (<code>cart.php</code>)</h2>
+    <div class="wireframe">
+      <div class="wf-bar">
+        <div class="wf-dots"><span style="background:#ef4444"></span><span style="background:#f59e0b"></span><span style="background:#22c55e"></span></div>
+        <div class="wf-url">https://marketkita.infinityfreeapp.com/cart.php</div>
+      </div>
+      <div class="wf-nav">
+        <div class="fw-bold"><i class="bi bi-bag-heart-fill"></i> MarketKita</div>
+        <div class="bg-white text-dark rounded px-3 py-1 flex-grow-1 small"><i class="bi bi-search"></i> Cari produk...</div>
+        <div class="small"><i class="bi bi-cart3"></i> Keranjang (3)</div>
+      </div>
+      <div class="p-3 p-md-4">
+        <h3 class="h6 fw-bold mb-3"><i class="bi bi-cart3"></i> Keranjang Belanja</h3>
+        <div class="row g-3">
+          <div class="col-md-8">
+            <div class="wf-box">
+              <table class="table table-sm align-middle mb-2 small">
+                <thead><tr><th><span class="anno">1</span>Produk</th><th class="text-end">Harga</th><th class="text-center"><span class="anno">2</span>Jumlah</th><th class="text-end">Subtotal</th><th><span class="anno">3</span></th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Headphone Bluetooth</strong><div class="text-muted">Andi Gadget • Stok: 25</div></td>
+                    <td class="text-end">Rp 349.000</td>
+                    <td class="text-center"><span class="border rounded px-2">1</span></td>
+                    <td class="text-end fw-bold">Rp 349.000</td>
+                    <td class="text-end"><span class="btn btn-outline-danger btn-sm py-0"><i class="bi bi-trash"></i></span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Kopi Arabika Gayo 250 gr</strong><div class="text-muted">Sari Fashion &amp; Food • Stok: 60</div></td>
+                    <td class="text-end">Rp 85.000</td>
+                    <td class="text-center"><span class="border rounded px-2">2</span></td>
+                    <td class="text-end fw-bold">Rp 170.000</td>
+                    <td class="text-end"><span class="btn btn-outline-danger btn-sm py-0"><i class="bi bi-trash"></i></span></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="d-flex justify-content-between pt-2 border-top">
+                <span class="btn btn-outline-secondary btn-sm">← Lanjut Belanja</span>
+                <div>
+                  <span class="btn btn-outline-danger btn-sm">Kosongkan</span>
+                  <span class="btn btn-primary btn-sm"><span class="anno">4</span>Perbarui Keranjang</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="wf-box">
+              <div class="fw-bold small mb-2"><span class="anno">5</span>Ringkasan Belanja</div>
+              <div class="d-flex justify-content-between small"><span>Total item</span><span>3 barang</span></div>
+              <div class="d-flex justify-content-between small"><span>Ongkos kirim</span><span class="text-success">Gratis</span></div>
+              <hr class="my-2">
+              <div class="d-flex justify-content-between fw-bold mb-2"><span>Total</span><span class="text-primary">Rp 519.000</span></div>
+              <div class="btn btn-primary w-100 btn-sm"><span class="anno">6</span><i class="bi bi-credit-card"></i> Checkout</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

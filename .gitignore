@@ -1,0 +1,19 @@
+# Konfigurasi rahasia (berisi password database) - JANGAN DI-COMMIT
+config/config.php
+
+# File upload pengguna (gambar produk yang diunggah lewat aplikasi)
+uploads/products/*
+!uploads/products/.gitkeep
+!uploads/products/.htaccess
+!uploads/products/index.html
+
+# File sistem / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.log
+*.bak
+*.tmp
+*.zip
